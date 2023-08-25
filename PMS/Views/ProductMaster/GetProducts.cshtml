@@ -19,7 +19,8 @@
 @*<div class="d-flex justify-content-end">
     <a class="btn btn-secondary" asp-controller="ProductMaster" asp-action=""> Add product</a>
 </div>*@
-<html>
+
+
 <div id="responseContainer"></div>
 <table class="table table-bordered">
     
@@ -41,29 +42,25 @@
 
 
 <script>
-    $(document).ready(function () {
-        // Your jQuery code goes her
-        //$('#a').click(function () {
-        //    
-        //});
-        GetAllProduct();
-    });
+    //$(document).ready(function () {
+    //    GetAllProduct();
+    //});
 
-    function GetAllProduct() {
-        var settings = {
-            "url": "/ProductMaster/GetProduct",
-            "method": "GET",
-            "timeout": 0,
-        };
+    //function GetAllProduct() {
+    //    var settings = {
+    //        "url": "/ProductMaster/GetProduct",
+    //        "method": "GET",
+    //        "timeout": 0,
+    //    };
 
-        function displayResponse(response) {
-            $('#responseContainer').html(response);
-        }
+       
+    //    $.ajax(settings).done(function (response) {
+    //        displayResponse(response.table); // Correct function call
+    //    });
 
-        $.ajax(settings).done(function (response) {
-            function displayResponse(response);
-            
-        });
+    //    function displayResponse(response) {
+    //        $('#responseContainer').html(response)
+    //    };
 
        
     }

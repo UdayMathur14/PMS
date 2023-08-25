@@ -12,11 +12,12 @@
     <script>
         $(document).ready(function () {
             $.ajax({
-                url: '/ProductMaster/GetProduct', // Replace with your API endpoint
+                url: '/ProductMaster/GetProduct',
                 method: 'GET',
-                dataType: 'json',
+               // dataType: 'json',
                 success: function (response) {
                     var productList = response.table;
+                    console.log(productList);
 
                     var productListContainer = $("#productList");
 

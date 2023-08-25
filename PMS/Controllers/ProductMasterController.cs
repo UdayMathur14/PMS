@@ -40,6 +40,10 @@ namespace PMS.Controllers
         {
             return View();
         }
+        public IActionResult CategoryPage()
+        {
+            return View();
+        }
 
         [HttpPost]
         public IActionResult CategorySearch([FromBody]cls_for_all obj)

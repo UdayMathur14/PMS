@@ -6,33 +6,31 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 <div class="mt-3">
-    <label class="form-label">OrganizationName</label>
+    <label class="form-label">Category</label>
     <select id="ddl_cat">
-        <option value="Business">Business</option>
-        <option value="Local">Local</option>
-        <option value="DutyFree">DutyFree</option>
+ 
     </select>
 </div>
 
 
 <div class="mt-3">
-    <label class="form-label">ProductName</label>
+    <label class="form-label">Product Name</label>
     <input type="text" class="form-control" id="ProductName" />
 </div>
 <div class="mt-3">
-    <label class="form-label">Product_Price</label>
+    <label class="form-label">Product Price</label>
     <input type="text" class="form-control" id="Product_Price" />
 </div>
 <div class="mt-3">
-    <label class="form-label">Product_Quantity</label>
+    <label class="form-label">Product Quantity</label>
     <input type="text" class="form-control" id="Product_Quantity" />
 </div>
 <div class="mt-3">
-    <label class="form-label">IsActive</label>
+    <label class="form-label">Is Active</label>
     <input type="text" class="form-control" id="IsActive" />
 </div>
 <div class="mt-3">
-    <label class="form-label">Image_Path Url</label>
+    <label class="form-label">Image Path Url</label>
     <input type="text" class="form-control" id="Image_Path Url" />
 </div>
 <br />
@@ -46,7 +44,12 @@
     $(document).ready(function () {
         // Your jQuery code goes here
         //
-        
+        var dropdown = $("#ddl_cat");
+        dropdown.append($('<option>', {
+            value: '',
+            text: 'Select an option'
+        }));
+        CategoryBind();
     });
 
     $('#mybutton').click(function () {
@@ -75,4 +78,58 @@
 
 
     });
+
+    function CategoryBind()
+    {
+        var settings = {
+            "url": "/ProductMaster/CategorySearch",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify({
+                "is_active": 1,
+                "spmode": 0
+            }),
+        };
+
+        $.ajax(settings).done(function (response) {
+            //console.log(response);
+            var res = response.table;
+
+            
+            $.each(res, function () {
+                $("#ddl_cat").append($("<option/>").val(this.categoryID).text(this.categoryName));
+            });
+
+        });
+
+        $("#mybutton").click(function () {
+            var valid = $("#ProductName").val().trim();
+
+            if (!valid) {
+                alert("Please enter a value.");
+            } else if (valid.length < 3) {
+                alert("Input value must be at least 3 characters long.");
+            } else {
+                alert("Input value is valid: " + valid);
+            }
+
+            var valid1 = $("#Product_Price").val().trim();
+
+            if (!valid1) {
+                alert("Please enter a value.");
+            } else if (!/^\d+$/.test(valid1)) {
+                alert("Input value must be a valid integer.");
+            } else {
+                var integerValue = parseInt(inputValue, 10);
+                alert("Input value is a valid integer: " + integerValue);
+            }
+
+
+
+        });
+
+    }
 </script>

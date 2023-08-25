@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+</head>
+<body>
+    <div id="productList"></div>
+
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: '/ProductMaster/CategorySearch',
+                method: 'POST',
+                data: JSON.stringify({
+                    is_active: 1,
+                    spmode: 0
+                }),
+                // dataType: 'json',
+                success: function (response) {
+                    var productList = response.table;
+                    
+
+                    var productListContainer = $("#productList");
+
+                    $.each(productList, function (index, product) {
+                        var productDiv = $("<div>");
+
+                        var categoryID = $("<p>", { text: "categoryID: " + product.categoryID });
+                      
+                        var categoryName = $("<p>", { text: "categoryName: " + product.categoryName });
+
+                        productDiv.append(categoryID, categoryName);
+                        productListContainer.append(productDiv);
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error fetching data from the API:", error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
