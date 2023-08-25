@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="productList"></div>
+
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: '/ProductMaster/GetProduct', // Replace with your API endpoint
+                method: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    var productList = response.table;
+
+                    var productListContainer = $("#productList");
+
+                    $.each(productList, function (index, product) {
+                        var productDiv = $("<div>", { class: "product" });
+
+                        var productName = $("<h2>", { text: product.productName });
+                        var productPrice = $("<p>", { text: "Price: $" + product.product_Price.toFixed(2) });
+                        var productQuantity = $("<p>", { text: "Quantity: " + product.product_Quantity });
+                        var createdBy = $("<p>", { text: "Created By: " + (product.created_By || "Unknown") });
+                        var createdDate = $("<p>", { text: "Created Date: " + product.created_Date });
+
+                        productDiv.append(productName, productPrice, productQuantity, createdBy, createdDate);
+                        productListContainer.append(productDiv);
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error fetching data from the API:", error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
