@@ -35,7 +35,7 @@ namespace PMS.Controllers
         {
             return View();
         }
-        
+
         public IActionResult t()
         {
             return View();
@@ -53,15 +53,15 @@ namespace PMS.Controllers
         }
 
         [HttpPost]
-        public IActionResult Insert_Product([FromBody]AddProduct obj)
+        public IActionResult Insert_Product([FromBody] AddProduct obj)
         {
-           
-            DataSet dataSet = obj_logic.Insert_Product(obj.ProductName , obj.Product_Price, obj.Product_Quantity , obj.IsActive , obj.Created_By,obj.spmode);
+            //data
+            DataSet dataSet = obj_logic.Insert_Product(obj.ProductName, obj.Product_Price, obj.Product_Quantity, obj.IsActive, obj.Created_By, obj.spmode);
             return Ok(dataSet);
         }
 
         [HttpPost]
-        public IActionResult Update_Product([FromBody]UpdateProduct obj)
+        public IActionResult Update_Product([FromBody] UpdateProduct obj)
         {
 
             DataSet dataSet = obj_logic.Insert_Product(obj.ProductName, obj.Product_Price, obj.Product_Quantity, obj.IsActive, obj.Created_By, obj.spmode);
