@@ -8,10 +8,8 @@
 
 <div class="mt-3">
     <label class="form-label">Category</label>
-    <select id="ddl_cat">
- 
-    </select>
-    
+    <select id="ddl_cat" class="form-control"></select>
+
 </div>
 
 
@@ -37,26 +35,18 @@
 </div>
 <br />
 <div class="mt-3">
-    <button id="mybutton" type="submit" class="btn btn-primary">Save</button>
+    <button id="mybutton" type="button" class="btn btn-primary">Save</button>
 </div>
 
 
 
 <script>
-    
+
     $(document).ready(function () {
-        // Your jQuery code goes here
-        //
-        var dropdown = $("#ddl_cat");
-        dropdown.append($('<option>', {
-            value: '',
-            text: 'Select an option'
-        }));
-        //CategoryBind();
+        CategoryBind();
     });
 
-    function CategoryBind()
-    {
+    function CategoryBind() {
         var settings = {
             "url": "/ProductMaster/CategorySearch",
             "method": "POST",
@@ -74,7 +64,10 @@
             //console.log(response);
             var res = response.table;
 
-            
+            $("#ddl_cat").append($('<option>', {
+                value: '',
+                text: 'Select an option'
+            }));
             $.each(res, function () {
                 $("#ddl_cat").append($("<option/>").val(this.categoryID).text(this.categoryName));
             });
@@ -84,58 +77,53 @@
     }
 
 
-    //$('#mybutton').click(function () {
-    //    alert('Button clicked using jQuery!');
-    //    //var cat_id = $('#ddl_cat').val();
+    $('#mybutton').click(function () {
+        //  alert('Button clicked using jQuery!');
+        
 
-    //    var settings = {
-    //        "url": "/ProductMaster/Insert_Product",
-    //        "method": "POST",
-    //        "timeout": 0,
-    //        "headers": {
-    //            "Content-Type": "application/json"
-    //        },
-    //        "data": JSON.stringify({
-    //            "ProductName": $("#ProductName").val(),
-    //            "Product_Price": $("#Product_Price").val(),
-    //            "Product_Quantity": $("#Product_Quantity").val(),
-    //            "IsActive": $("#IsActive").val(),
-    //            "spmode": 0
-    //        }),
-    //    };
+        var name = $("#ProductName").val();
+        var price = $("#product_price").val();
+        var product = $("#product_quantity").val();
 
-    //    $.ajax(settings).done(function (response) {
-    //        console.log(response);
-    //        alert("succesfully added");
-    //    });
+        if (name == "") {
+            alert("Please enter product name.");
+            return;
+        }
 
-    //});
+        if (isnan(price) || price.trim() === "" || price < 1) {
+            alert("enter a valid price");
+            return;
+        }
 
-   
-        $("#mybutton").click(function(event) {
-            var name = $("#ProductName").val();
-            var Price = $("#Product_Price").val();
-            var Product = $("#Product_Quantity").val();
-            
-            // Basic validation
-            if (name === "" || email === "") {
-                alert("Enter A valid Product Name.");
-                event.preventDefault(); // Prevent form submission
-            }
-           
-           
-            if (isNaN(Price) || Price.trim() === "" || Price<1) {
-                alert("Enter a valid price");
-                event.preventDefault();
-            }
+        if (isnan(product) || product.trim() === "" || product < 1) {
+            alert("enter a valid quantity");
+            return;
+        }
 
-            if (isNaN(Product) || Product.trim() === "" || Product < 1) {
-                alert("Enter a valid Quantity");
-                event.preventDefault();
-            }
-           
+        var settings = {
+            "url": "/ProductMaster/Insert_Product",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify({
+                "ProductName": $("#ProductName").val(),
+                "Product_Price": $("#Product_Price").val(),
+                "Product_Quantity": $("#Product_Quantity").val(),
+                "IsActive": $("#IsActive").val(),
+                "spmode": 0
+            }),
+        };
+
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+            alert("succesfully added");
         });
-   
-   
+
+        return false;
+
+    });
+
 
 </script>
