@@ -8,7 +8,7 @@
 @*<h1 class="mt-3">All_Products_Lists</h1>*@
 
 <div class="mt-3">
-    <button id="mybutton" asp-controller="ProductMaster" asp-action="addAnotherProduct" type="button" class="btn btn-primary">Add Product</button>
+    <button id="mybutton" onclick="location.href = 'https://localhost:44325/ProductMaster/AddProduct';" asp-controller="ProductMaster" asp-action="addAnotherProduct" type="button" class="btn btn-primary">Add Product</button>
 </div>
 <br />
 
@@ -19,24 +19,6 @@
 @*<div class="d-flex justify-content-end">
         <a class="btn btn-secondary" asp-controller="ProductMaster" asp-action=""> Add product</a>
     </div>*@
-
-
-@*<div id="responseContainer"></div>
-<table class="table table-bordered">
-
-    <thead>
-        <tr>
-            <th>ProductName</th>
-            <th>ProductCategory</th>
-            <th>ProductQuantity</th>
-            <th>ProductPrice</th>
-            <th>IsActive</th>
-
-
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>*@
 
 <!DOCTYPE html>
 <html lang="en">
@@ -55,13 +37,16 @@
                 <th>ProductName</th>
                 <th>ProductCategory</th>
                 <th>ProductQuantity</th>
-                @*<th>ProductPrice</th>
-                <th>IsActive</th>*@
+                <th>ProductPrice</th>
+                <th>IsActive</th>
+                <th>Edit Details</th>
+
+                <td id="but" >
+                        <a  asp-controller="productmaster" asp-action="updateproduct" class="btn btn-primary">edit</a>
+                </td>
             </tr>
         </thead>
-        <tbody>
-
-        </tbody>
+        <tbody></tbody>
     </table>
 
     <script>
@@ -72,37 +57,33 @@
                 // dataType: 'json',
                 success: function (response) {
                     var data = response.table;
-                    //console.log(productList);
-
-                    // var productListContainer = $("#productList");
-
-                    //$.each(productList, function (index, product) {
-                    //    var productDiv = $("<div>", { class: "product" });
-
-                    //    var productName = $("<h2>", { text: product.productName });
-                    //    var productPrice = $("<p>", { text: "Price: $" + product.product_Price.toFixed(2) });
-                    //    var productQuantity = $("<p>", { text: "Quantity: " + product.product_Quantity });
-                    //    var createdBy = $("<p>", { text: "Created By: " + (product.created_By || "Unknown") });
-                    //    var createdDate = $("<p>", { text: "Created Date: " + product.created_Date });
-
-                    //    productDiv.append(productName, productPrice, productQuantity, createdBy, createdDate);
-                    //    productListContainer.append(productDiv);
-                    //});
 
                     for (var i = 0; i < data.length; i++) {
                         var row = $('<tr>');
                         row.append($('<td>').text(data[i].productName));
                         row.append($('<td>').text(data[i].product_Price));
                         row.append($('<td>').text(data[i].product_Quantity));
+                        row.append($('<td>').text(data[i].product_Price));
+                        row.append($('<td>').text(data[i].isActive));
+                        //var butt = row.append($('<button>', { class: "btn btn-primary", id:"bts" }).text('Click Me'));
+                        //var link = $('<a>', {
+                        //    href: "/ProductMaster/UpdateProduct" 
+                        //}).append(butt);
+                        $('#but').clone().appendTo(row);
                         // Append more cells for additional columns
 
                         $('#data-table tbody').append(row);
+                        
                     }
                 },
                 error: function (xhr, status, error) {
                     console.log("Error fetching data from the API:", error);
                 }
             });
+        });
+
+        $('.btn btn-primary').click(function () {
+            alert("button is clicked")
         });
     </script>
 </body>

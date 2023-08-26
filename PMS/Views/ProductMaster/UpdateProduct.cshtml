@@ -3,3 +3,28 @@
 }
 
 <h2>UpdateProduct</h2>
+<form method="post">
+    <div class="mt-3">
+        <label class="form-label">ProductId</label>
+        <input type="text" class="form-control" readonly />
+    </div>
+    <div class="mt-3">
+        <label class="form-label">ProductName</label>
+        <input type="text" class="form-control" />
+    </div>
+    <div class="mt-3">
+        <label class="form-label">ProductCategory</label>
+        <input type="text" class="form-control" />
+    </div>
+    <div class="mt-3">
+        <label class="form-label">ProductQuantity</label>
+        <input type="text" class="form-control" />
+    </div>
+    <br />
+
+    <div class="mt-3 d-flex justify-content-between">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" asp-controller="ProductMaster" asp-action="Delete" class="btn btn-danger">Delete</button>
+    </div>
+
+</form>
