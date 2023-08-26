@@ -4,12 +4,14 @@
 
 <h2>AddProduct</h2>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <div class="mt-3">
     <label class="form-label">Category</label>
     <select id="ddl_cat">
  
     </select>
+    
 </div>
 
 
@@ -35,12 +37,13 @@
 </div>
 <br />
 <div class="mt-3">
-    <button id="mybutton" type="button" class="btn btn-primary">Save</button>
+    <button id="mybutton" type="submit" class="btn btn-primary">Save</button>
 </div>
 
 
 
 <script>
+    
     $(document).ready(function () {
         // Your jQuery code goes here
         //
@@ -49,34 +52,7 @@
             value: '',
             text: 'Select an option'
         }));
-        CategoryBind();
-    });
-
-    $('#mybutton').click(function () {
-        alert('Button clicked using jQuery!');
-        //var cat_id = $('#ddl_cat').val();
-
-        var settings = {
-            "url": "/ProductMaster/Insert_Product",
-            "method": "POST",
-            "timeout": 0,
-            "headers": {
-                "Content-Type": "application/json"
-            },
-            "data": JSON.stringify({
-                "ProductName": $("#ProductName").val(),
-                "Product_Price": $("#Product_Price").val(),
-                "Product_Quantity": $("#Product_Quantity").val(),
-                "IsActive": $("#IsActive").val(),
-                "spmode" :0
-            }),
-        };
-
-        $.ajax(settings).done(function (response) {
-            console.log(response);
-        });
-
-
+        //CategoryBind();
     });
 
     function CategoryBind()
@@ -105,31 +81,61 @@
 
         });
 
-        $("#mybutton").click(function () {
-            var valid = $("#ProductName").val().trim();
-
-            if (!valid) {
-                alert("Please enter a value.");
-            } else if (valid.length < 3) {
-                alert("Input value must be at least 3 characters long.");
-            } else {
-                alert("Input value is valid: " + valid);
-            }
-
-            var valid1 = $("#Product_Price").val().trim();
-
-            if (!valid1) {
-                alert("Please enter a value.");
-            } else if (!/^\d+$/.test(valid1)) {
-                alert("Input value must be a valid integer.");
-            } else {
-                var integerValue = parseInt(inputValue, 10);
-                alert("Input value is a valid integer: " + integerValue);
-            }
-
-
-
-        });
-
     }
+
+
+    //$('#mybutton').click(function () {
+    //    alert('Button clicked using jQuery!');
+    //    //var cat_id = $('#ddl_cat').val();
+
+    //    var settings = {
+    //        "url": "/ProductMaster/Insert_Product",
+    //        "method": "POST",
+    //        "timeout": 0,
+    //        "headers": {
+    //            "Content-Type": "application/json"
+    //        },
+    //        "data": JSON.stringify({
+    //            "ProductName": $("#ProductName").val(),
+    //            "Product_Price": $("#Product_Price").val(),
+    //            "Product_Quantity": $("#Product_Quantity").val(),
+    //            "IsActive": $("#IsActive").val(),
+    //            "spmode": 0
+    //        }),
+    //    };
+
+    //    $.ajax(settings).done(function (response) {
+    //        console.log(response);
+    //        alert("succesfully added");
+    //    });
+
+    //});
+
+   
+        $("#mybutton").click(function(event) {
+            var name = $("#ProductName").val();
+            var Price = $("#Product_Price").val();
+            var Product = $("#Product_Quantity").val();
+            
+            // Basic validation
+            if (name === "" || email === "") {
+                alert("Enter A valid Product Name.");
+                event.preventDefault(); // Prevent form submission
+            }
+           
+           
+            if (isNaN(Price) || Price.trim() === "" || Price<1) {
+                alert("Enter a valid price");
+                event.preventDefault();
+            }
+
+            if (isNaN(Product) || Product.trim() === "" || Product < 1) {
+                alert("Enter a valid Quantity");
+                event.preventDefault();
+            }
+           
+        });
+   
+   
+
 </script>
