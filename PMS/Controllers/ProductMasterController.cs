@@ -69,7 +69,7 @@ namespace PMS.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetProduct()
+        public IActionResult GetProduct(int? sku = null)
         {
             DataSet dataSet = obj_logic.GetProduct();
             return Ok(dataSet);
@@ -113,14 +113,14 @@ public class UpdateProduct
 
 }
 
-public class GetProduct
-{
-    public int ProductId;
-    public string ProductName;
-    public int Product_Price;
-    public int Product_Quantity;
-    public int IsActive;
-    public string Created_By;
-    public int spmode;
+//public class GetProduct
+//{
+//    public int ProductId;
+//    public string ProductName;
+//    public int Product_Price;
+//    public int Product_Quantity;
+//    public int IsActive;
+//    public string Created_By;
+//    public int spmode;
 
-}
+//}

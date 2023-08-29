@@ -29,6 +29,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+    <a  id="but" asp-controller="productmaster" asp-action="updateproduct" class="btn btn-primary">edit</a>
     <div id="responseContainer"></div>
     <table id="data-table" class="table table-bordered">
 
@@ -39,11 +40,8 @@
                 <th>ProductQuantity</th>
                 <th>ProductPrice</th>
                 <th>IsActive</th>
-                <th>Edit Details</th>
+                <th style="color:blue;text-align:center;">Edit Details</th>
 
-                <td id="but" >
-                        <a  asp-controller="productmaster" asp-action="updateproduct" class="btn btn-primary">edit</a>
-                </td>
             </tr>
         </thead>
         <tbody></tbody>
@@ -61,7 +59,7 @@
                     for (var i = 0; i < data.length; i++) {
                         var row = $('<tr>');
                         row.append($('<td>').text(data[i].productName));
-                        row.append($('<td>').text(data[i].product_Price));
+                        row.append($('<td>').text(data[i].product_Category_ID));
                         row.append($('<td>').text(data[i].product_Quantity));
                         row.append($('<td>').text(data[i].product_Price));
                         row.append($('<td>').text(data[i].isActive));
